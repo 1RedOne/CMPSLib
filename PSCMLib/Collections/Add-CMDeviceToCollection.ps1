@@ -1,3 +1,8 @@
+Function Call-GetMethod {
+   param($InputObject)
+    $InputObject.Get()
+}
+
 
 Function Add-CMDeviceToCollection {
     <#
@@ -81,7 +86,7 @@ Function Add-CMDeviceToCollection {
         $Rules = @()
 
         $MemberCount = Get-WmiObject @WMIArgs -Class SMS_Collection -ErrorAction Stop -Filter $Filter
-        $MemberCount.Get()
+        $MemberCount = Call-GetMethod -InputObject $MemberCount
         Write-Verbose "$Filter direct membership rule count: $($MemberCount.CollectionRules.Count)"
         $FoundList = $MemberCount.CollectionRules.ResourceID
         if ( $PassThru ) { $MemberCount | Write-Output }
